@@ -2357,6 +2357,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// Add to script.js
 
 // Desktop Prompt Functionality
 document.addEventListener('DOMContentLoaded', function() {
@@ -2373,7 +2374,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function checkScroll() {
         if (window.innerWidth > 968) return;
         const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-        if (scrollPercent >= 70) {
+        if (scrollPercent >= 80) {
             promptBtn.classList.remove('hidden');
         } else {
             promptBtn.classList.add('hidden');
@@ -2381,7 +2382,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.addEventListener('scroll', checkScroll);
-    window.addEventListener('resize', checkScroll); 
+    window.addEventListener('resize', checkScroll); // Re-check on resize
 
     // Initial check
     checkScroll();
@@ -2401,7 +2402,7 @@ document.addEventListener('DOMContentLoaded', function() {
     copyBtn.addEventListener('click', async function(e) {
         e.preventDefault();
         try {
-            await navigator.clipboard.writeText(window.location.href);
+            await navigator.clipboard.writeText('codewithskye.github.io');
             showToast('Link copied!', 'success');
         } catch (err) {
             showToast('Failed to copy link', 'error');
@@ -2437,9 +2438,14 @@ function showToast(message, type = 'success') {
     const toastMessage = document.getElementById('toast-message');
     if (toast && toastMessage) {
         toastMessage.textContent = message;
-        toast.className = `toast ${type}`;
         toast.classList.remove('hidden');
+        toast.classList.remove('error');
+        toast.classList.add('show');
+        if (type === 'error') {
+            toast.classList.add('error');
+        }
         setTimeout(() => {
+            toast.classList.remove('show');
             toast.classList.add('hidden');
         }, 3000);
     }
